@@ -20,7 +20,7 @@
 .container1 {
     background-color: #233d40;
     height: 65vh;
-    width: 45vw;
+    width: 60vw;
     border-radius: 7px;
     display: grid;
     grid-template-rows: 45% 55%;

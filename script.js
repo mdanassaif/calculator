@@ -180,5 +180,5 @@ var youtubeIcon = document.getElementById("nextDay");
 // Add a click event listener
 youtubeIcon.addEventListener("click", function () {
     // Open the YouTube link when the div is clicked
-    window.open("https://github.com/m0hdanassaif/", "_blank");
+    window.open("https://github.com/mdkhan2024/", "_blank");
 });
