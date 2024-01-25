@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator : Day 1</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="containContainers">
+    <div class="container1">
+      <div class="outputs">
+        <div class="timedateday">
+          <div class="time" id="currentTime">12:12 AM</div>
+          <div class="date" id="currentDate">12 May, 2023</div>
+          <div class="day" id="currentDay">Monday</div>
+        </div>
+
+        <div class="outputarea">
+          <div id="input_num" readonly></div>
+          <div id="output_num"></div>
+        </div>
+
+
+        <div class="abortOpts">
+          <div class="reset" onclick="clearAll()">
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M12 16c1.671 0 3-1.331 3-3s-1.329-3-3-3s-3 1.331-3 3s1.329 3 3 3z" />
+              <path fill="currentColor"
+                d="M20.817 11.186a8.94 8.94 0 0 0-1.355-3.219a9.053 9.053 0 0 0-2.43-2.43a8.95 8.95 0 0 0-3.219-1.355a9.028 9.028 0 0 0-1.838-.18V2L8 5l3.975 3V6.002c.484-.002.968.044 1.435.14a6.961 6.961 0 0 1 2.502 1.053a7.005 7.005 0 0 1 1.892 1.892A6.967 6.967 0 0 1 19 13a7.032 7.032 0 0 1-.55 2.725a7.11 7.11 0 0 1-.644 1.188a7.2 7.2 0 0 1-.858 1.039a7.028 7.028 0 0 1-3.536 1.907a7.13 7.13 0 0 1-2.822 0a6.961 6.961 0 0 1-2.503-1.054a7.002 7.002 0 0 1-1.89-1.89A6.996 6.996 0 0 1 5 13H3a9.02 9.02 0 0 0 1.539 5.034a9.096 9.096 0 0 0 2.428 2.428A8.95 8.95 0 0 0 12 22a9.09 9.09 0 0 0 1.814-.183a9.014 9.014 0 0 0 3.218-1.355a8.886 8.886 0 0 0 1.331-1.099a9.228 9.228 0 0 0 1.1-1.332A8.952 8.952 0 0 0 21 13a9.09 9.09 0 0 0-.183-1.814z" />
+            </svg>
+          </div>
+          <div class="delete" onclick="deleteInput()">
+            <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor"
+                d="M29 26H12a1 1 0 0 1-.707-.293l-9-9a1 1 0 0 1 0-1.414l9-9A1 1 0 0 1 12 6h17a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1Zm-16.586-2H28V8H12.414l-8 8l8 8Z" />
+              <path fill="currentColor"
+                d="M20.414 16L25 11.414L23.586 10L19 14.586L14.414 10L13 11.414L17.586 16L13 20.586L14.414 22L19 17.414L23.586 22L25 20.586L20.414 16z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="inputs">
+        <div class="inputOperators">
+
+          <div class="box" id="nextDay"> <svg width="24" height="24" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor"
+                d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z" />
+            </svg></div>
+          <div class="box" id="remainder_operator" onclick="remainderFucn()">%</div>
+
+          <div class="box" id="dot" onclick="dotFunc()">.</div>
+          <div class="box" id="devide_operator" onclick="devideFunc()">/</div>
+          <div class="box" id="seven_num" onclick="sevenFunc()">7</div>
+          <div class="box" id="eight_num" onclick="eightFunc()">8</div>
+          <div class="box" id="nine_num" onclick="nineFunc()">9</div>
+          <div class="box" id="mupliplication_operator" onclick="multiplicationFunc()">*</div>
+          <div class="box" id="four_num" onclick="fourFunc()">4</div>
+          <div class="box" id="five_num" onclick="fiveFunc()">5</div>
+          <div class="box" id="six_num" onclick="sixFunc()">6</div>
+          <div class="box" id="substraction_operator" onclick="substractionFunc()">-</div>
+          <div class="box" id="one_num" onclick="oneFunc()">1</div>
+          <div class="box" id="two_num" onclick="twoFunc()">2</div>
+          <div class="box" id="three_num" onclick="threeFunc()">3</div>
+          <div class="box" id="addition_operator" onclick="additionFunc()">+</div>
+          <div class="box" id="parentheses_left" onclick="parenthesesLeftFunc()">(</div>
+          <div class="box" id="zero_num" onclick="zeroFunc()">0</div>
+
+
+          <div class="box" id="parentheses_right" onclick="parenthesesRightFunc()">)</div>
+
+
+          <div class="box" id="equal_answer" onclick="finalAnswer()">
+            <svg width="48" height="48" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                <path
+                  d="M5 8a1.5 1.5 0 0 1 1.5-1.5h10a1.5 1.5 0 0 1 0 3h-10A1.5 1.5 0 0 1 5 8Zm0 6a1.5 1.5 0 0 1 1.5-1.5h10a1.5 1.5 0 0 1 0 3h-10A1.5 1.5 0 0 1 5 14Z"
+                  opacity=".2" />
+                <path
+                  d="M4.5 7a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5Zm0 6a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5Z" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="container2">
+      <h1>Day 1</h1>
+      <h4>Calculator with using HTML, CSS and Javascript.</h4>
+    </div> -->
+  </div>
+</body>
+
+<script src="script.js"></script>
+
+</html>
