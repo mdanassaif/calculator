@@ -1,145 +1,205 @@
+// Magic with DOM  
 const inputNum = document.getElementById("input_num");
 const outputNum = document.getElementById("output_num");
 
+ 
+document.addEventListener('keydown', function(event) {
+  
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        finalAnswer();
+    } else if (event.key === 'Backspace') {
+        event.preventDefault();
+        deleteInput();
+    } else if (event.key === 'Escape') {
+        event.preventDefault();
+        clearAll();
+    }
+});
 
-const zeroNum = document.getElementById('zero_num').innerHTML
-const oneNum = document.getElementById('one_num').innerHTML
-const twoNum = document.getElementById('two_num').innerHTML
-const threeNum = document.getElementById('three_num').innerHTML
-const fourNum = document.getElementById('four_num').innerHTML
-const fiveNum = document.getElementById('five_num').innerHTML
-const sixNum = document.getElementById('six_num').innerHTML
-const sevenNum = document.getElementById('seven_num').innerHTML
-const eightNum = document.getElementById('eight_num').innerHTML
-const nineNum = document.getElementById('nine_num').innerHTML
-const dot = document.getElementById('dot').innerHTML
+// event 4 keyboard number and operator input
+document.addEventListener('keypress', function(event) {
+    // Allow only specific characters
+    const allowedChars = '0123456789.+-*/%()\b';
+    
+    if (allowedChars.includes(event.key)) {
+        event.preventDefault();
+        
+        // on keyboard handling
+        switch(event.key) {
+            case '0': zeroFunc(); break;
+            case '1': oneFunc(); break;
+            case '2': twoFunc(); break;
+            case '3': threeFunc(); break;
+            case '4': fourFunc(); break;
+            case '5': fiveFunc(); break;
+            case '6': sixFunc(); break;
+            case '7': sevenFunc(); break;
+            case '8': eightFunc(); break;
+            case '9': nineFunc(); break;
+            case '.': dotFunc(); break;
+            case '+': additionFunc(); break;
+            case '-': substractionFunc(); break;
+            case '*': multiplicationFunc(); break;
+            case '/': devideFunc(); break;
+            case '%': remainderFucn(); break;
+            case '(': parenthesesLeftFunc(); break;
+            case ')': parenthesesRightFunc(); break;
+            case 'Enter': finalAnswer(); break;
+        }
+    }
+});
 
+// Number input functions
+function numberInput(num) {
+    // Prevent leading zeros
+    if (inputNum.innerHTML === '0') {
+        inputNum.innerHTML = num;
+    } else {
+        inputNum.innerHTML += num;
+    }
+}
 
-const additionSign = document.getElementById('addition_operator').innerHTML;
-const substractionSign = document.getElementById('substraction_operator').innerHTML;
-const multiplicationSign = document.getElementById('mupliplication_operator').innerHTML;
-const devideSign = document.getElementById('devide_operator').innerHTML;
-const remainderSign = document.getElementById('remainder_operator').innerHTML;
+function zeroFunc() { numberInput('0'); }
+function oneFunc() { numberInput('1'); }
+function twoFunc() { numberInput('2'); }
+function threeFunc() { numberInput('3'); }
+function fourFunc() { numberInput('4'); }
+function fiveFunc() { numberInput('5'); }
+function sixFunc() { numberInput('6'); }
+function sevenFunc() { numberInput('7'); }
+function eightFunc() { numberInput('8'); }
+function nineFunc() { numberInput('9'); }
 
-const parenthesesLeft = document.getElementById('parentheses_left').innerHTML;
-const parenthesesRight = document.getElementById('parentheses_right').innerHTML;
-
-
-
-
-function zeroFunc() {
-    inputNum.innerHTML += zeroNum
-}
-function oneFunc() {
-    inputNum.innerHTML += oneNum
-}
-function twoFunc() {
-    inputNum.innerHTML += twoNum
-}
-function threeFunc() {
-    inputNum.innerHTML += threeNum
-}
-function fourFunc() {
-    inputNum.innerHTML += fourNum
-}
-function fiveFunc() {
-    inputNum.innerHTML += fiveNum
-}
-function sixFunc() {
-    inputNum.innerHTML += sixNum
-}
-function sevenFunc() {
-    inputNum.innerHTML += sevenNum
-}
-function eightFunc() {
-    inputNum.innerHTML += eightNum
-}
-function nineFunc() {
-    inputNum.innerHTML += nineNum
-}
+// Dot function with advanced validation
 function dotFunc() {
-    if (inputNum == '.') {
-        inputNum.innerHTML += dot
-    } else {
-        inputNum.innerHTML = dot
+    const currentInput = inputNum.innerHTML;
+    
+    // Check if last segment doesn't already contain a dot
+    const lastSegment = currentInput.split(/[+\-*/%)]/);
+    const lastSegmentStr = lastSegment[lastSegment.length - 1];
+    
+    if (!lastSegmentStr.includes('.')) {
+        // If input is empty or ends with an operator, add '0.'
+        if (currentInput === '' || ['+', '-', '*', '/', '%', '('].includes(currentInput.slice(-1))) {
+            inputNum.innerHTML += '0.';
+        } else {
+            inputNum.innerHTML += '.';
+        }
     }
 }
 
-
+// Operator functions with advanced input handling
 function additionFunc() {
-    if (inputNum == '+') {
-        inputNum.innerHTML += additionSign
-    } else {
-        inputNum.innerHTML = additionSign
+    const lastChar = inputNum.innerHTML.slice(-1);
+    const operators = ['+', '-', '*', '/', '%'];
+    
+    // Replace last operator or add if valid
+    if (operators.includes(lastChar)) {
+        inputNum.innerHTML = inputNum.innerHTML.slice(0, -1) + '+';
+    } else if (lastChar !== '(' && inputNum.innerHTML !== '') {
+        inputNum.innerHTML += '+';
     }
-
 }
 
 function substractionFunc() {
-    if (inputNum == '-') {
-        inputNum.innerHTML += substractionSign
-    } else {
-        inputNum.innerHTML = substractionSign
+    const lastChar = inputNum.innerHTML.slice(-1);
+    const operators = ['+', '-', '*', '/', '%'];
+    
+    // Handle negative number and operator replacement
+    if (operators.includes(lastChar)) {
+        inputNum.innerHTML = inputNum.innerHTML.slice(0, -1) + '-';
+    } else if (lastChar !== '(' && inputNum.innerHTML !== '') {
+        inputNum.innerHTML += '-';
     }
-
-
 }
 
 function multiplicationFunc() {
-    let lastChar = inputNum.innerHTML.slice(-1);
-    if (lastChar.match(/[0-9]/)) {
-        inputNum.innerHTML += multiplicationSign
+    const lastChar = inputNum.innerHTML.slice(-1);
+    const operators = ['+', '-', '*', '/', '%'];
+    
+    // Allow multiplication after number or closing parenthesis
+    if (lastChar.match(/[0-9\)]/) || (!operators.includes(lastChar) && inputNum.innerHTML !== '')) {
+        inputNum.innerHTML += '*';
     }
-
 }
 
 function devideFunc() {
-    let lastChar = inputNum.innerHTML.slice(-1);
-    if (lastChar.match(/[0-9]/)) {
-        inputNum.innerHTML += devideSign
+    const lastChar = inputNum.innerHTML.slice(-1);
+    const operators = ['+', '-', '*', '/', '%'];
+    
+    // Allow division after number or closing parenthesis
+    if (lastChar.match(/[0-9\)]/) || (!operators.includes(lastChar) && inputNum.innerHTML !== '')) {
+        inputNum.innerHTML += '/';
     }
 }
 
 function remainderFucn() {
-    let lastChar = inputNum.innerHTML.slice(-1);
-    if (lastChar.match(/[0-9]/)) {
-        inputNum.innerHTML += remainderSign
+    const lastChar = inputNum.innerHTML.slice(-1);
+    const operators = ['+', '-', '*', '/', '%'];
+    
+    // Allow remainder after number or closing parenthesis
+    if (lastChar.match(/[0-9\)]/) || (!operators.includes(lastChar) && inputNum.innerHTML !== '')) {
+        inputNum.innerHTML += '%';
     }
 }
 
+// Parentheses functions
 function parenthesesLeftFunc() {
-    let lastChar = inputNum.innerHTML.slice(-1);
-    // Check if the last character is an operator or an open parenthesis
-    if (lastChar.match(/[\+\-\*\/\%\(]/)) {
-        inputNum.innerHTML += parenthesesLeft
+    const lastChar = inputNum.innerHTML.slice(-1);
+    const operators = ['+', '-', '*', '/', '%', '('];
+    
+    // Allow open parenthesis after operators or at start
+    if (lastChar === '' || operators.includes(lastChar)) {
+        inputNum.innerHTML += '(';
     }
 }
 
 function parenthesesRightFunc() {
-    let lastChar = inputNum.innerHTML.slice(-1);
-    // Check if the last character is a digit or a close parenthesis
-    if (lastChar.match(/[0-9\)]/)) {
-        inputNum.innerHTML += parenthesesRight
+    const lastChar = inputNum.innerHTML.slice(-1);
+    const openCount = (inputNum.innerHTML.match(/\(/g) || []).length;
+    const closeCount = (inputNum.innerHTML.match(/\)/g) || []).length;
+    
+    // Allow closing parenthesis if more open than close and after number
+    if (lastChar.match(/[0-9\)]/) && openCount > closeCount) {
+        inputNum.innerHTML += ')';
     }
 }
 
+// Final answer with comprehensive error handling
 function finalAnswer() {
-    outputNum.innerHTML = eval(inputNum.innerHTML)
+    try {
+        const input = inputNum.innerHTML;
+        if (input.trim() === '') return;
+        
+        // Validate parentheses
+        const openCount = (input.match(/\(/g) || []).length;
+        const closeCount = (input.match(/\)/g) || []).length;
+        if (openCount !== closeCount) {
+            outputNum.innerHTML = 'Parentheses Error';
+            return;
+        }
+        
+        // Evaluate and round result
+        const result = eval(input);
+        outputNum.innerHTML = Number(result.toFixed(10));
+    } catch (error) {
+        outputNum.innerHTML = 'Error';
+    }
 }
 
+// Delete last input
 function deleteInput() {
-    const result = inputNum.innerHTML.toString().slice(0, -1);
-    inputNum.innerHTML = result;
+    inputNum.innerHTML = inputNum.innerHTML.slice(0, -1);
 }
 
+// Clear all inputs
 function clearAll() {
-    inputNum.innerHTML = "";
-    outputNum.innerHTML = "";
+    inputNum.innerHTML = '';
+    outputNum.innerHTML = '';
 }
 
-
-// Time,Day and Date
-
+// Time, Day, and Date update function (existing code)
 function updateTime() {
     const currentTimeElement = document.getElementById("currentTime");
     const currentDateElement = document.getElementById("currentDate");
@@ -167,18 +227,12 @@ function updateTime() {
     currentDayElement.innerText = dayOfWeekString;
 }
 
-// Update the time every second
+// Update time every second
 setInterval(updateTime, 1000);
+updateTime(); // Initial call
 
-// Initial call to set the time when the page loads
-updateTime();
-
-// Next Project 
-
+// GitHub link for Next Day icon
 var youtubeIcon = document.getElementById("nextDay");
-
-// Add a click event listener
 youtubeIcon.addEventListener("click", function () {
-    // Open the YouTube link when the div is clicked
-    window.open("https://github.com/mdkhan2024/", "_blank");
+    window.open("https://github.com/mdanassaif/", "_blank");
 });

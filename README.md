@@ -16,7 +16,7 @@ Used super easy javascript to build a perfect Calculator
 
 ## Authors
 
-- [@Nextjswebdev](https://www.github.com/Nextjswebdev)
+- [@mdanassaif](https://www.github.com/mdanassaif)
 
 
 ## Screenshots
